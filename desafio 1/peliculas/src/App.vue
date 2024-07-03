@@ -9,5 +9,12 @@ import { items } from "./movies.json";
 
 <template>
   <!-- This is where your template goes	-->
-  <div></div>
+  <div>
+    <h1>Movie List</h1>
+    <ul>
+      <li v-for="movie in movies" :key="movie.title">
+        {{ movie.title }} ({{ movie.year }})
+      </li>
+    </ul>
+  </div>
 </template>
