@@ -4,17 +4,93 @@ import { items } from "./movies.json";
  This is an Icon that you can use to represent the stars if you like
  otherwise you could just use a simple ⭐️ emoji, or * character.
 */
-// import { StarIcon } from "@heroicons/vue/24/solid";
+//import { StarIcon } from "@heroicons/vue/24/solid";
 </script>
 
 <template>
   <!-- This is where your template goes	-->
-  <div>
-    <h1>Movie List</h1>
-    <ul>
-      <li v-for="movie in movies" :key="movie.title">
-        {{ movie.title }} ({{ movie.year }})
-      </li>
-    </ul>
+  <div class="container">
+    <template v-for="item in items" :key="item.id">
+      <div class="movie">
+        <img :src="item.image" :alt="item.name" class="movie-image">
+        <div class="content">
+          <h2 class="title">{{item.name}}</h2>
+          <div class="genres">
+            <span v-for="genre in item.genres" :key="genre" class="genre">{{genre}}</span>
+          </div>
+          <p class="description">{{item.description}}</p>
+          <div class="card-rating">
+            <span>Rating: ({{ item.rating }}/5)</span>
+            <span>{{ '⭐️'.repeat(item.rating) }}</span>
+          </div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
+<style scoped>
+body {
+  background-color: #1e1e2f;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie {
+  background-color: #2a2a3b;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 300px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.movie-image {
+  width: 100%;
+  height: 450px; 
+  object-fit: cover;
+}
+
+.content {
+  padding: 15px;
+}
+
+.title {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.genre {
+  background-color: #351c75;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 0.8em;
+}
+
+.description {
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+}
+</style>
