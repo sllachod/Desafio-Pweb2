@@ -30,40 +30,47 @@ import { items } from "./movies.json";
 </template>
 <style scoped>
 body {
-  background-color: #1e1e2f;
-  color: #fff;
+  background-color: #351c75;
+  color: #211e7d;
   font-family: Arial, sans-serif;
 }
 
 .container {
+  background-color: #050515;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   padding: 20px;
 }
 
 .movie {
-  background-color: #2a2a3b;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   width: 300px;
   margin-bottom: 20px;
-  color: #fff;
+  color: #351c75;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Define the layout: image, flexible description, rating */
 }
 
 .movie-image {
   width: 100%;
-  height: 450px; 
+  height: 450px;
   object-fit: cover;
 }
 
 .content {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
   font-size: 1.2em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin: 10px 0;
 }
 
@@ -75,21 +82,25 @@ body {
 }
 
 .genre {
-  background-color: #351c75;
-  color: #fff;
+  background-color: #6129ba;
+  color: #ffffff;
   border-radius: 5px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 2px 8px;
   font-size: 0.8em;
 }
 
 .description {
   font-size: 0.9em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin-bottom: 15px;
+  flex-grow: 1; /* Make the description take available space */
 }
 
 .rating {
   display: flex;
   justify-content: space-between;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   align-items: center;
   font-size: 1em;
 }
