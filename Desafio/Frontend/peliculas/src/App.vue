@@ -1,3 +1,4 @@
+// App.vue
 <template>
   <div class="container">
     <div v-for="item in items" :key="item.id" class="movie">
@@ -31,7 +32,12 @@ const fetchMovies = () => {
   axios.get('http://localhost:8000/api/peliculas/')
     .then(response => {
       console.log(response.data); 
-      items.value = response.data;
+      items.value = response.data.map(movie => {
+        if (typeof movie.genres === 'string') {
+          movie.genres = movie.genres.split(','); // Divide la cadena en una lista
+        }
+        return movie;
+      });
     })
     .catch(error => {
       console.error('Error fetching movies:', error);
