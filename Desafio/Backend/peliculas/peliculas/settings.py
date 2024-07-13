@@ -127,7 +127,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',  # Este es el puerto por defecto de desarrollo de Vue.js
-    'http://127.0.0.1:8080',   # Otra opción para el localhost
+    'http://localhost:5173',  # URL de tu frontend Vue.js en desarrollo
 ]
 CORS_ORIGIN_ALLOW_ALL = True  # Permite todas las orígenes, cambiar a producción
