@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cineteca',
-    'rest_framework',  # Para usar Django REST framework
-    'corsheaders',  # Para permitir peticiones desde el frontend
+    #'rest_framework',  # Para usar Django REST framework
+    #'corsheaders',  # Para permitir peticiones desde el frontend
 ]
 
 MIDDLEWARE = [
