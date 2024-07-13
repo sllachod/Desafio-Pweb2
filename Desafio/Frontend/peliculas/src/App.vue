@@ -1,4 +1,3 @@
-// App.vue
 <template>
   <div class="container">
     <div v-for="item in items" :key="item.id" class="movie">
@@ -13,8 +12,30 @@
           <span>Rating: ({{ item.rating }}/5)</span>
           <span>{{ '⭐️'.repeat(item.rating) }}</span>
         </div>
+        <button @click="editMovie(item)">Edit</button>
+        <button @click="deleteMovie(item.id)">Delete</button>
       </div>
     </div>
+  </div>
+  <!-- Add a form for editing/adding movies -->
+  <div v-if="selectedMovie" class="modal">
+    <h2>Edit Movie</h2>
+    <form @submit.prevent="updateMovie">
+      <label for="name">Name:</label>
+      <input v-model="selectedMovie.name" id="name" type="text" />
+      
+      <label for="genres">Genres (comma separated):</label>
+      <input v-model="selectedMovie.genres" id="genres" type="text" />
+
+      <label for="description">Description:</label>
+      <textarea v-model="selectedMovie.description" id="description"></textarea>
+
+      <label for="rating">Rating:</label>
+      <input v-model="selectedMovie.rating" id="rating" type="number" min="1" max="5" />
+
+      <button type="submit">Save</button>
+      <button @click="selectedMovie = null">Cancel</button>
+    </form>
   </div>
 </template>
 
@@ -23,6 +44,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const items = ref([]);
+const selectedMovie = ref(null);
 
 onMounted(() => {
   fetchMovies();
@@ -43,7 +65,33 @@ const fetchMovies = () => {
       console.error('Error fetching movies:', error);
     });
 };
+
+const deleteMovie = (id) => {
+  axios.delete(`http://localhost:8000/api/peliculas/${id}/`)
+    .then(() => {
+      fetchMovies();
+    })
+    .catch(error => {
+      console.error('Error deleting movie:', error);
+    });
+};
+
+const editMovie = (movie) => {
+  selectedMovie.value = { ...movie }; // Make a copy of the movie object
+};
+
+const updateMovie = () => {
+  axios.put(`http://localhost:8000/api/peliculas/${selectedMovie.value.id}/`, selectedMovie.value)
+    .then(() => {
+      selectedMovie.value = null;
+      fetchMovies();
+    })
+    .catch(error => {
+      console.error('Error updating movie:', error);
+    });
+};
 </script>
+
 <style scoped>
 body {
   background-color: #351c75;
@@ -119,5 +167,17 @@ body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   align-items: center;
   font-size: 1em;
+}
+
+/* Styles for the modal form */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 </style>
