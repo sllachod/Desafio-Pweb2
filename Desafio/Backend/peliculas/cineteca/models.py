@@ -5,6 +5,6 @@ class Movie(models.Model):
     description = models.TextField()
     image = models.URLField(max_length=200)
     rating = models.IntegerField()
-    genres = models.JSONField(default=list)  # Asegúrate de usar JSONField
+    genres = models.TextField()
     def __str__(self):
         return self.name
