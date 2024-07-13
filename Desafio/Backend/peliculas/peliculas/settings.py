@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'peliculas.urls'
@@ -124,7 +126,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',  # Este es el puerto por defecto de desarrollo de Vue.js
+    'http://127.0.0.1:8080',   # Otra opción para el localhost
 ]
 CORS_ORIGIN_ALLOW_ALL = True  # Permite todas las orígenes, cambiar a producción

@@ -8,26 +8,43 @@ import { items } from "./movies.json";
 </script>
 
 <template>
-  <!-- This is where your template goes	-->
   <div class="container">
-    <template v-for="item in items" :key="item.id">
-      <div class="movie">
-        <img :src="item.image" :alt="item.name" class="movie-image">
-        <div class="content">
-          <h2 class="title">{{item.name}}</h2>
-          <div class="genres">
-            <span v-for="genre in item.genres" :key="genre" class="genre">{{genre}}</span>
-          </div>
-          <p class="description">{{item.description}}</p>
-          <div class="card-rating">
-            <span>Rating: ({{ item.rating }}/5)</span>
-            <span>{{ '⭐️'.repeat(item.rating) }}</span>
-          </div>
+    <div v-for="item in items" :key="item.id" class="movie">
+      <img :src="item.image" :alt="item.name" class="movie-image">
+      <div class="content">
+        <h2 class="title">{{ item.name }}</h2>
+        <div class="genres">
+          <span v-for="genre in item.genres" :key="genre" class="genre">{{ genre }}</span>
+        </div>
+        <p class="description">{{ item.description }}</p>
+        <div class="card-rating">
+          <span>Rating: ({{ item.rating }}/5)</span>
+          <span>{{ '⭐️'.repeat(item.rating) }}</span>
         </div>
       </div>
-    </template>
+    </div>
   </div>
 </template>
+
+<script setup>
+import axios from 'axios';
+
+const items = ref([]);
+
+onMounted(() => {
+  fetchMovies();
+});
+
+const fetchMovies = () => {
+  axios.get('http://localhost:8000/api/peliculas/')
+    .then(response => {
+      items.value = response.data;
+    })
+    .catch(error => {
+      console.error('Error fetching movies:', error);
+    });
+};
+</script>
 <style scoped>
 body {
   background-color: #351c75;
