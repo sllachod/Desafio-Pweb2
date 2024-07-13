@@ -1,12 +1,3 @@
-<script setup>
-import { items } from "./movies.json";
-/*
- This is an Icon that you can use to represent the stars if you like
- otherwise you could just use a simple ⭐️ emoji, or * character.
-*/
-//import { StarIcon } from "@heroicons/vue/24/solid";
-</script>
-
 <template>
   <div class="container">
     <div v-for="item in items" :key="item.id" class="movie">
@@ -27,6 +18,7 @@ import { items } from "./movies.json";
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const items = ref([]);
@@ -38,6 +30,7 @@ onMounted(() => {
 const fetchMovies = () => {
   axios.get('http://localhost:8000/api/peliculas/')
     .then(response => {
+      console.log(response.data); 
       items.value = response.data;
     })
     .catch(error => {
